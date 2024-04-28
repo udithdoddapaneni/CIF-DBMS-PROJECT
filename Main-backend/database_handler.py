@@ -59,6 +59,7 @@ class PostgresqlDB:
             return result
         except Exception as err:
             print(f'Failed to execute dql commands -- {err}')
+            raise RuntimeError
 
     def execute_ddl_and_dml_commands(self,stmnt,values=None):
         """
@@ -79,6 +80,7 @@ class PostgresqlDB:
         except Exception as err:
             trans.rollback()
             print(f'Failed to execute ddl and dml commands -- {err}')
+            raise RuntimeError
 
 
 #Defining Db Credentials
@@ -98,4 +100,3 @@ def login(username, password) -> PostgresqlDB:
     engine = db.engine
 
     return db
-
