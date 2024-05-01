@@ -95,18 +95,20 @@ async function show_current_user(){
     // <div class="current-user">show current user:-</div>
     // Write the current user to the page
     const currentUser = document.querySelector('.current-user');
-    currentUser.textContent = `User: ${response_data.username}`;
+    currentUser.textContent = `User: ${response_data.message}`;
 
 
 }
 
 async function fetchAndDisplayEquipments() {
     try {
+        const token = getCookie();
         const response = await fetch('http://127.0.0.1:8000/show_all_equipments', {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify({ token })
         });
 
         if (!response.ok) {
@@ -136,5 +138,3 @@ async function fetchAndDisplayEquipments() {
         alert('Failed to fetch equipment data. Please try again later.');
     }
 }
-
-
