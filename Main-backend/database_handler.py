@@ -146,8 +146,8 @@ def show_all_equipment(db: PostgresqlDB):
         result.append(record)
     return result
 
-def show_avaiable_slots_for_equipment(db: PostgresqlDB, equipment_name: str):
-    query = f"select s.slot_id, equipment.equipment_name, s.equipment_id, s.slot_time from equipment, check_slots() as s where s.equipment_id = equipment.equipment_id and equipment.equipment_name = '{equipment_name}'"
+def show_avaiable_slots_for_equipment(db: PostgresqlDB, equipment_id: str):
+    query = f"select s.slot_id, equipment.equipment_name, s.equipment_id, s.slot_time from equipment, check_slots() as s where s.equipment_id = equipment.equipment_id and equipment.equipment_id = '{equipment_id}'"
     r = list(db.execute_dql_commands(query))
     result = []
     fields = ["slot_id", "equipment_name", "equipment_id", "slot_time"]
@@ -263,6 +263,18 @@ def show_projects(db: PostgresqlDB):
     r = list(db.execute_dql_commands(query))
     result = []
     fields = ["project_id", "project_title", "supervisor"]
+    for i in r:
+        record = {}
+        for j in range(len(i)):
+            record[fields[j]] = i[j]
+        result.append(record)
+    return result
+
+def get_ids_by_equipment_name(db: PostgresqlDB, equipment_name: str):
+    query = f"select equipment_id, location from equipment where equipment_name = '{equipment_name}'"
+    r = list(db.execute_dql_commands(query))
+    result = []
+    fields = ["equipment_id", "location"]
     for i in r:
         record = {}
         for j in range(len(i)):
