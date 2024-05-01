@@ -14,13 +14,14 @@
         </form>
     </div>
     <script src="script.js"></script>
+    <link rel="stylesheet" href="login.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const token = getCookie();
+            if (token) {
+                window.location.href = 'main.html';
+            } 
+        });
+    </script>
 </body>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const token = getCookie();
-        if (token) {
-            window.location.href = 'profile.html';
-        } 
-    });
-</script>
 </html>
