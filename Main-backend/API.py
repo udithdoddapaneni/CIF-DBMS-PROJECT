@@ -83,3 +83,43 @@ async def show_current_user(token: Token):
     except Exception as err:
         print("error_show_user", err)
         return {"message":"NO CURRENT USER"}
+    
+
+@app.post("/get_all_students")
+async def get_all_students(token: Token):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.show_all_students(db)
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+@app.post("/get_all_faculty")
+async def get_all_faculty(token: Token):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.show_all_faculty(db)
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+@app.post("/get_all_staff")
+async def get_all_staff(token: Token):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.show_all_staff(db)
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
