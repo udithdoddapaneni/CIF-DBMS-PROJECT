@@ -104,16 +104,36 @@ def login(username, password) -> PostgresqlDB:
 
 
 def show_all_students(db: PostgresqlDB):
-    result = list(db.execute_dql_commands("select * from student"))
-    
+    fields = ["student_id", "student_name", "super_visor_id"]
+    r = list(db.execute_dql_commands("select * from student"))
+    result = []
+    for i in r:
+        record = {}
+        for j in range(len(i)):
+            record[fields[j]] = i[j]
+        result.append(record)
     return result
 
 def show_all_faculty(db: PostgresqlDB):
-    result = list(db.execute_dql_commands("select * from faculty"))
+    fields = ["faculty_id", "faculty_name"]
+    r = list(db.execute_dql_commands("select * from faculty"))
+    result = []
+    for i in r:
+        record = {}
+        for j in range(len(i)):
+            record[fields[j]] = i[j]
+        result.append(record)
     return result
 
 def show_all_staff(db: PostgresqlDB):
-    result = list(db.execute_dql_commands("select * from staff"))
+    fields = ["staff_id", "staff_name"]
+    r = list(db.execute_dql_commands("select * from staff"))
+    result = []
+    for i in r:
+        record = {}
+        for j in range(len(i)):
+            record[fields[j]] = i[j]
+        result.append(record)
     return result
 
 def show_all_equipment(db: PostgresqlDB):
@@ -134,22 +154,30 @@ def show_avaiable_slots_for_equipment(db: PostgresqlDB, equipment_name: str):
 
 def request_a_slot_for_project(db: PostgresqlDB, slot_id: int, project_id: str):
     query = f"call request_slot({slot_id}, '{project_id}')"
-    result = list(db.execute_dql_commands(query))
-    return result
+    list(db.execute_ddl_and_dml_commands(query))
 
 def decide_by_super_visor(db: PostgresqlDB, request_id: int, decision: str):
     query = f"call decide_by_super_visor({request_id}, '{decision}')"
-    result = list(db.execute_dql_commands(query))
-    return result
+    list(db.execute_ddl_and_dml_commands(query))
 
 def decide_by_faculty_incharge(db: PostgresqlDB, request_id: int, decision: str):
     query = f"call decide_by_faculty_incharge({request_id}, '{decision}')"
-    result = list(db.execute_dql_commands(query))
-    return result
+    list(db.execute_ddl_and_dml_commands(query))
 
 def decide_by_staff_incharge(db: PostgresqlDB, request_id: int, decision: str):
     query = f"call decide_by_staff_incharge({request_id}, '{decision}')"
-    result = list(db.execute_dql_commands(query))
+    list(db.execute_ddl_and_dml_commands(query))
+
+def show_requests_supervisor(db: PostgresqlDB):
+    query = "select * from show_requests_supervisor()"
+    r = list(db.execute_dql_commands(query))
+    result = []
+    fields = ["request_id", "equipment_name", "slot_time", "slot_id"]
+    for i in r:
+        record = {}
+        for j in range(len(i)):
+            record[fields[j]] = i[j]
+        result.append(record)
     return result
 
 def is_member_of(db: PostgresqlDB):
