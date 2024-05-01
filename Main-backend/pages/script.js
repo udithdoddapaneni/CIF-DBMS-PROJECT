@@ -99,7 +99,6 @@ async function show_current_user(){
 
 
 }
-
 async function fetchAndDisplayEquipments() {
     try {
         const token = getCookie();
@@ -125,11 +124,28 @@ async function fetchAndDisplayEquipments() {
         // Loop through the equipment objects and create rows
         equipmentList.forEach(item => {
             const row = document.createElement('tr');
-            const cell = document.createElement('td');
-            cell.textContent = item.equipment_name;
-            cell.style.border = '1px solid #333';
-            cell.style.padding = '8px';
-            row.appendChild(cell);
+
+            // Equipment name cell
+            const nameCell = document.createElement('td');
+            nameCell.textContent = item.equipment_name.toUpperCase(); // Capitalize the name
+            nameCell.style.border = '1px solid #333';
+            nameCell.style.padding = '8px';
+            nameCell.style.fontWeight = 'bold'; // Bold the name
+            row.appendChild(nameCell);
+
+            // Book button cell
+            const buttonCell = document.createElement('td');
+            buttonCell.style.border = '1px solid #333';
+            buttonCell.style.padding = '8px';
+            
+            const button = document.createElement('button');
+            button.textContent = 'Book';
+            button.style.padding = '5px 10px';
+            button.style.marginLeft = '10px'; // Add some spacing between name and button
+            button.onclick = () => bookEquipment(item.equipment_name); // Replace with actual booking logic
+            buttonCell.appendChild(button);
+
+            row.appendChild(buttonCell);
             tableBody.appendChild(row);
         });
 
@@ -137,4 +153,9 @@ async function fetchAndDisplayEquipments() {
         console.error('Error fetching equipment data:', error);
         alert('Failed to fetch equipment data. Please try again later.');
     }
+}
+
+// Placeholder function for booking logic
+function bookEquipment(equipmentName) {
+    alert(`Booking equipment: ${equipmentName}`);
 }
