@@ -106,7 +106,19 @@ body {
 
 /* show-requests is a div*/
 .request-item {
-  margin-top: 50px;
+  margin-top: 25px;
   border: 1px solid #333;
   padding-left: 10px;
+}
+
+.book {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #333;
+}
+
+.slot {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #333;
 }

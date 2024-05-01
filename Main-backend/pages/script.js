@@ -158,7 +158,8 @@ async function fetchAndDisplayEquipments() {
 
 // Placeholder function for booking logic
 function bookEquipment(equipmentName) {
-  alert(`Booking equipment: ${equipmentName}`);
+  //   go to the booking page
+  window.location.href = "booking.html?equipment=" + equipmentName;
 }
 
 function trackRequest() {

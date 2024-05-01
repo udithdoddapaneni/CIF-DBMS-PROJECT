@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CIF</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js"></script>
+    <!-- Add Script for book.js -->
+    <script src="book.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">CIF</div>
+      <div class="user-menu">
+        <h3 class="current-user">User:</h3>
+        <div class="dropdown-content">
+          <button onclick="show_current_user()">Profile</button>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </nav>
+    <div class="content" style="margin: 20px; margin-bottom: 40px">
+      <h1>Book Your Slot</h1>
+      <p>Book your equipments</p>
+    </div>
+    <div id="books"></div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const token = getCookie();
+      if (!token) {
+        window.location.href = "login.html";
+      }
+      show_current_user();
+    });
+  </script>
+</html>
