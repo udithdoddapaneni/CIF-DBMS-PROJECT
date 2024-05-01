@@ -4,8 +4,6 @@ from BaseModels import LoginCredentials, Token
 from hashlib import sha256
 import database_handler
 
-
-
 app = FastAPI()
 
 
@@ -118,6 +116,124 @@ async def get_all_staff(token: Token):
         current_user = token.token
         db = open_connection(current_user)
         result = database_handler.show_all_staff(db)
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+
+@app.post("/get_all_equipment")
+async def get_all_equipment(token: Token):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.show_all_equipment(db)
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+@app.post("/show_avaiable_slots_for_equipment")
+async def show_avaiable_slots_for_equipment(token: Token, equipment_name: str):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.show_avaiable_slots_for_equipment(db, equipment_name)
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+@app.post("/request_a_slot_for_project")
+async def request_a_slot_for_project(token: Token, slot_id: int, project_id: str):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.request_a_slot_for_project(db, slot_id, project_id)
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+@app.post("/decide_by_super_visor")
+async def decide_by_super_visor(token: Token, request_id: int, decision: str):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.decide_by_super_visor(db, request_id, decision)
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+@app.post("/decide_by_faculty_incharge")
+async def decide_by_faculty_incharge(token: Token, request_id: int, decision: str):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.decide_by_faculty_incharge(db, request_id, decision)
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+@app.post("/decide_by_staff_incharge")
+async def decide_by_staff_incharge(token: Token, request_id: int, decision: str):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.decide_by_staff_incharge(db, request_id, decision)
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+
+@app.post("/is_member_of")
+async def is_member_of(token: Token):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.is_member_of(db)
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+@app.post("/show_current_user")
+async def show_current_user(token: Token):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = list(db.execute_dql_commands("select current_user"))
+        db = None # dereference
+        return {"message":result[0][0]}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"NO CURRENT USER"}
+    
+@app.post("/show_all_students")
+async def show_all_students(token: Token):
+    try:
+        # current_user = list(request.cookies)[0]
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.show_all_students(db)
         db = None # dereference
         return {"message":result[0][0]}
     except Exception as err:
