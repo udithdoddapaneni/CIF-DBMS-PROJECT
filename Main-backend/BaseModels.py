@@ -21,3 +21,7 @@ class Decision(BaseModel):
     token: str
     request_id: int
     decision: str
+
+class Simple_Request(BaseModel):
+    token: str
+    request_id: int
