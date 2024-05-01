@@ -82,7 +82,6 @@ class PostgresqlDB:
             print(f'Failed to execute ddl and dml commands -- {err}')
             raise RuntimeError
 
-
 #Defining Db Credentials
 def login(username, password) -> PostgresqlDB:
     USER_NAME = username
@@ -240,6 +239,30 @@ def show_requests_student(db: PostgresqlDB):
     r = list(db.execute_dql_commands(query))
     result = []
     fields = ["request_id", "slot_id", "equipment_id", "proj_id", "slot_time"]
+    for i in r:
+        record = {}
+        for j in range(len(i)):
+            record[fields[j]] = i[j]
+        result.append(record)
+    return result
+
+def check_status(db: PostgresqlDB, request_id: int):
+    query = f"select check_status({request_id})"
+    r = list(db.execute_dql_commands(query))
+    result = []
+    fields = ["status"]
+    for i in r:
+        record = {}
+        for j in range(len(i)):
+            record[fields[j]] = i[j]
+        result.append(record)
+    return result
+
+def show_projects(db: PostgresqlDB):
+    query = f"select p.project_id, p.project_title, p.faculty_incharge_id from project as p, student where p.faculty_incharge_id = student.super_visor_id and student.student_id = current_user"
+    r = list(db.execute_dql_commands(query))
+    result = []
+    fields = ["project_id", "project_title", "supervisor"]
     for i in r:
         record = {}
         for j in range(len(i)):
