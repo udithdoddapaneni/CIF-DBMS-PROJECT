@@ -95,7 +95,7 @@ async function show_current_user(){
     // <div class="current-user">show current user:-</div>
     // Write the current user to the page
     const currentUser = document.querySelector('.current-user');
-    currentUser.textContent = `Current User: ${response_data.username}`;
+    currentUser.textContent = `User: ${response_data.username}`;
 
 
 }
