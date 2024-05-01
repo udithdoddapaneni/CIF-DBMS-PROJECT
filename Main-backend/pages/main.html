@@ -1,74 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>CIF</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <script src="script.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="logo">CIF</div>
-        <div class="user-menu">
-            <h3 class="current-user">User: </h3>
-            <div class="dropdown-content">
-                <button onclick="show_current_user()">Profile</button>
-                <button onclick="logout()">Logout</button>
-            </div>
+      <div class="logo">CIF</div>
+      <div class="user-menu">
+        <h3 class="current-user">User:</h3>
+        <div class="dropdown-content">
+          <button onclick="show_current_user()">Profile</button>
+          <button onclick="logout()">Logout</button>
         </div>
+      </div>
     </nav>
-    <div class="content" style="margin: 20px; margin-bottom: 40px;">
-        <h1>Welcome to CIF</h1>
-        <p>Use the following functionality to proceed with what you want.</p>
+    <div class="content" style="margin: 20px; margin-bottom: 40px">
+      <h1>Welcome to CIF</h1>
+      <p>Use the following functionality to proceed with what you want.</p>
     </div>
     <!-- Print a table with all the main equipments -->
     <div class="row">
-        <div class="show-equipments column">
-            <table id="equipmentTable" style="width:100%; border-collapse: collapse;">
-                <thead>
-                    <tr>
-                        <th style="border: 1px solid #333; padding: 18px;">Equipment Name</th>
-                    </tr>
-                </thead>
-                <tbody id="equipmentTableBody">
-                    <!-- Equipment rows will be added here -->
-                </tbody>
-            </table>
-            <button onclick="fetchAndDisplayEquipments()" style="padding: 8px 16px;
+      <div class="show-equipments column">
+        <table
+          id="equipmentTable"
+          style="width: 100%; border-collapse: collapse; margin-top: 30px"
+        >
+          <thead>
+            <tr>
+              <th style="border: 1px solid #333; padding: 18px">
+                Equipment Name
+              </th>
+            </tr>
+          </thead>
+          <tbody id="equipmentTableBody">
+            <!-- Equipment rows will be added here -->
+          </tbody>
+        </table>
+        <button
+          onclick="fetchAndDisplayEquipments()"
+          style="
+            padding: 8px 16px;
             background-color: #333;
             color: #fff;
             border: none;
-            cursor: pointer;">Show Equipments</button>
+            cursor: pointer;
+            margin-top: 10px;
+          "
+        >
+          Show Equipments
+        </button>
+      </div>
+      <div class="show-equipments column">
+        <h4>Track Request</h4>
+        <div class="track-request">
+          <input
+            type="text"
+            id="requestIdInput"
+            placeholder="Enter Request ID"
+          />
+          <button onclick="trackRequest()">Track Request</button>
         </div>
-        <div class="show-equipments column">
-            <h4>Track Request</h4>
-            <div class="track-request">
-                <input type="text" id="requestIdInput" placeholder="Enter Request ID">
-                <button onclick="trackRequest()">Track Request</button>
-            </div>
-            <div class="request-info" id="requestInfo">
-                <p>Request ID: <span id="reqId"></span></p>
-                <p>Date: <span id="reqDate"></span></p>
-                <p>Approved: <span id="reqApproved"></span></p>
-            </div>
+        <div class="request-info hidden" id="requestInfo">
+          <p>Request ID: <span id="reqId"></span></p>
+          <p>Date: <span id="reqDate"></span></p>
+          <p>Status: <span id="reqApproved"></span></p>
         </div>
-        <div class="show-equipments column">
-            <h4>All Request</h4>
-        </div>
-
+      </div>
+      <div class="show-equipments column">
+        <h4>All Request</h4>
+        <button
+          onclick="showRequestsAll()"
+          style="
+            padding: 8px 16px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+          "
+        >
+          Show Requests
+        </button>
+        <div id="requestInfo2" class="show-requests"></div>
+      </div>
     </div>
-
-    
-    
-    
-</body>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const token = getCookie();
-        if (!token) {
-            window.location.href = 'login.html';
-        }
-        show_current_user();
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const token = getCookie();
+      if (!token) {
+        window.location.href = "login.html";
+      }
+      show_current_user();
     });
-</script>
+  </script>
 </html>
