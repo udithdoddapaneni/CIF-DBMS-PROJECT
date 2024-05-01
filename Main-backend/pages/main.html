@@ -1,12 +1,24 @@
 <html>
 
     <head>this is the main page</head>
-
+    
     <body>
         <div>show current user:-</div>
         <div><button onclick = "show_current_user()">enter</button></div>
         <div><button onclick = "logout()">logout</button></div>
         <script src = "script.js"></script>
     </body>
+
+    <!-- Check if the cookie exists then redirect that way -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const token = getCookie();
+            if (token) {
+                window.location.href = 'profile.html';
+            } else {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
 
 </html>
