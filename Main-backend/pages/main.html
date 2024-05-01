@@ -3,7 +3,7 @@
     <head>this is the main page</head>
     
     <body>
-        <div>show current user:-</div>
+        <div class="current-user">show current user:-</div>
         <div><button onclick = "show_current_user()">enter</button></div>
         <div><button onclick = "logout()">logout</button></div>
         <script src = "script.js"></script>
@@ -16,6 +16,7 @@
             if (!token) {
                 window.location.href = 'login.html';
             }
+            show_current_user();
         });
     </script>
 

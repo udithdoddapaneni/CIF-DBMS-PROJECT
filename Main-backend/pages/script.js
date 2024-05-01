@@ -90,6 +90,12 @@ async function show_current_user(){
         body: JSON.stringify({ token })
     })
     const response_data = await response.json()
-    console.log(response_data)
-    alert(response_data.message)
+    // console.log(response_data)
+    // alert(response_data.message)
+    // <div class="current-user">show current user:-</div>
+    // Write the current user to the page
+    const currentUser = document.querySelector('.current-user');
+    currentUser.textContent = `Current User: ${response_data.username}`;
+
+
 }
