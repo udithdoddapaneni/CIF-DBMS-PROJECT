@@ -122,3 +122,11 @@ body {
   padding: 10px;
   border: 1px solid #333;
 }
+
+.request-item {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #333;
+  padding-left: 10px;
+}

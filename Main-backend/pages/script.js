@@ -214,6 +214,268 @@ function trackRequest() {
     });
 }
 
+// for supervisor show all pendng requests
+// <div id="showPendingSuper"></div>
+function showPendingRequestsSuper() {
+  const token = getCookie();
+  const requestData = {
+    token: token,
+  };
+
+  fetch("http://10.32.9.245:8000/show_requests_supervisor", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+
+    .then((data) => {
+      console.log(data);
+      const container = document.getElementById("showPendingSuper");
+      container.innerHTML = "";
+      data.message.forEach((request) => {
+        const requestDiv = document.createElement("div");
+        requestDiv.classList.add("request-item");
+
+        const requestIdPara = document.createElement("p");
+        requestIdPara.textContent = `Request ID: ${request.request_id}`;
+
+        const slotIdPara = document.createElement("p");
+        slotIdPara.textContent = `Slot ID: ${request.slot_id}`;
+
+        const equipmentIdPara = document.createElement("p");
+        equipmentIdPara.textContent = `Equipment Name: ${request.equipment_name}`;
+
+        const slotTimePara = document.createElement("p");
+        slotTimePara.textContent = `Slot Time: ${request.slot_time}`;
+
+        requestDiv.appendChild(requestIdPara);
+        requestDiv.appendChild(slotIdPara);
+        requestDiv.appendChild(equipmentIdPara);
+        requestDiv.appendChild(slotTimePara);
+
+        container.appendChild(requestDiv);
+
+        // add two buttons to approve or reject the request
+        const approveButton = document.createElement("button");
+        approveButton.textContent = "Approve";
+        approveButton.style = `
+            padding: 8px 16px;
+            background-color: green;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+          `;
+        requestDiv.appendChild(approveButton);
+        approveButton.addEventListener("click", () => {
+          approveRequest(request.request_id);
+        });
+
+        const rejectButton = document.createElement("button");
+        rejectButton.textContent = "Reject";
+        rejectButton.style = `
+            padding: 8px 16px;
+            background-color: red;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+          `;
+        requestDiv.appendChild(rejectButton);
+        rejectButton.addEventListener("click", () => {
+          rejectRequest(request.request_id);
+        });
+      });
+    });
+}
+
+function approveRequest(requestId) {
+  const token = getCookie();
+  const requestData = {
+    token: token,
+    request_id: requestId,
+    decision: "approved",
+  };
+
+  fetch("http://10.32.9.245:8000/decide_by_super_visor", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert("Request approved successfully.");
+      showPendingRequestsSuper();
+    })
+    .catch((error) => {
+      alert("An error occurred while approving the request.");
+      console.error(error);
+    });
+}
+
+function rejectRequest(requestId) {
+  const token = getCookie();
+  const requestData = {
+    token: token,
+    request_id: requestId,
+    decision: "rejected",
+  };
+
+  fetch("http://10.32.9.245:8000/decide_by_super_visor", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert("Request rejected successfully.");
+      showPendingRequestsSuper();
+    })
+    .catch((error) => {
+      alert("An error occurred while approving the request.");
+      console.error(error);
+    });
+}
+
+function showPendingRequestsIn() {
+  const token = getCookie();
+  const requestData = {
+    token: token,
+  };
+
+  fetch("http://10.32.9.245:8000/show_requests_faculty_incharge", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+
+    .then((data) => {
+      console.log(data);
+      const container = document.getElementById("showPendingIn");
+      container.innerHTML = "";
+      data.message.forEach((request) => {
+        const requestDiv = document.createElement("div");
+        requestDiv.classList.add("request-item");
+
+        const requestIdPara = document.createElement("p");
+        requestIdPara.textContent = `Request ID: ${request.request_id}`;
+
+        const slotIdPara = document.createElement("p");
+        slotIdPara.textContent = `Slot ID: ${request.slot_id}`;
+
+        const equipmentIdPara = document.createElement("p");
+        equipmentIdPara.textContent = `Equipment Name: ${request.equipment_name}`;
+
+        const slotTimePara = document.createElement("p");
+        slotTimePara.textContent = `Slot Time: ${request.slot_time}`;
+
+        requestDiv.appendChild(requestIdPara);
+        requestDiv.appendChild(slotIdPara);
+        requestDiv.appendChild(equipmentIdPara);
+        requestDiv.appendChild(slotTimePara);
+
+        container.appendChild(requestDiv);
+
+        // add two buttons to approve or reject the request
+        const approveButton = document.createElement("button");
+        approveButton.textContent = "Approve";
+        approveButton.style = `
+            padding: 8px 16px;
+            background-color: green;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+          `;
+        requestDiv.appendChild(approveButton);
+        approveButton.addEventListener("click", () => {
+          approveRequestIN(request.request_id);
+        });
+
+        const rejectButton = document.createElement("button");
+        rejectButton.textContent = "Reject";
+        rejectButton.style = `
+            padding: 8px 16px;
+            background-color: red;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+          `;
+        requestDiv.appendChild(rejectButton);
+        rejectButton.addEventListener("click", () => {
+          rejectRequestIN(request.request_id);
+        });
+      });
+    });
+}
+
+function approveRequestIN(requestId) {
+  const token = getCookie();
+  const requestData = {
+    token: token,
+    request_id: requestId,
+    decision: "approved",
+  };
+
+  fetch("http://10.32.9.245:8000/decide_by_faculty_incharge", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert("Request approved successfully.");
+      showPendingRequestsIn();
+    })
+    .catch((error) => {
+      alert("An error occurred while approving the request.");
+      console.error(error);
+    });
+}
+
+function rejectRequestIN(requestId) {
+  const token = getCookie();
+  const requestData = {
+    token: token,
+    request_id: requestId,
+    decision: "rejected",
+  };
+
+  fetch("http://10.32.9.245:8000/decide_by_faculty_incharge", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert("Request rejected successfully.");
+      showPendingRequestsIn();
+    })
+    .catch((error) => {
+      alert("An error occurred while approving the request.");
+      console.error(error);
+    });
+}
+
 // Show all requests of the current user
 // Show all requests of the current user
 async function showRequestsAll() {
@@ -282,3 +544,51 @@ async function showRequestsAll() {
     alert("Failed to fetch request data. Please try again later.");
   }
 }
+
+async function checkUser() {
+  const token = getCookie();
+
+  //   const response = fetch("http://10.32.9.245:8000/is_member_of", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ token }),
+  //   });
+
+  //   const data = response.json();
+  //   const message = data.message;
+  //   console.log(message);
+  try {
+    const response = await fetch("http://10.32.9.245:8000/is_member_of", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token }),
+    });
+    const data = await response.json();
+    const message = data.message;
+    console.log(message);
+    if (message === "faculty") {
+      window.location.href = "faculty.html";
+    } else if (message === "staff") {
+      window.location.href = "staff.html";
+    }
+
+    // if (message === "student") {
+    //     window.location.href = "student.html";
+    // } else if (message === "faculty") {
+    //     window.location.href = "faculty.html";
+    // } else if (message === "admin") {
+    //     window.location.href = "admin.html";
+    // } else {
+    //     window.location.href = "login.html";
+    // }
+  } catch (error) {
+    console.error("Error occurred during login:", error);
+    alert("An error occurred during login. Please try again later.");
+  }
+}
+
+checkUser();
