@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Response, Request
 from fastapi.middleware.cors import CORSMiddleware
-from BaseModels import LoginCredentials, Token, Equipment, Slot_Request, Decision, Simple_Request
+from BaseModels import LoginCredentials, Token, Equipment, Slot_Request, Decision, Simple_Request, EquipmentByID
 from hashlib import sha256
 import database_handler
 
@@ -11,7 +11,8 @@ users: dict[str, (str, str)] = {}
 
 # Allow requests from specific origins
 origins = [
-    "http://127.0.0.1:5500",
+    # "http://127.0.0.1:5500"
+"*"
 ]
 
 # Configure CORS middleware
@@ -148,11 +149,11 @@ async def show_all_equipment(token: Token):
         return {"message":"ERROR"}
     
 @app.post("/show_available_slots_equipment")
-async def show_available_slots_equipment(equipment: Equipment):
+async def show_available_slots_equipment(equipment: EquipmentByID):
     try:
         current_user = equipment.token
         db = open_connection(current_user)
-        result = database_handler.show_avaiable_slots_for_equipment(db, equipment.name)
+        result = database_handler.show_avaiable_slots_for_equipment(db, equipment.ID)
         db = None # dereference
         return {"message":result}
     except Exception as err:
@@ -165,8 +166,9 @@ async def request_a_slot_for_project(request: Slot_Request):
         current_user = request.token
         db = open_connection(current_user)
         result = database_handler.request_a_slot_for_project(db, request.slot_ID, request.project_ID)
+        print(result)
         db = None # dereference
-        return {"message":result}
+        return {"message":"success"}
     except Exception as err:
         print("error_show_user", err)
         return {"message":"ERROR"}
@@ -273,6 +275,19 @@ async def show_projects(token: Token):
         current_user = token.token
         db = open_connection(current_user)
         result = database_handler.show_projects(db)
+        db = None # dereference
+        return {"message":result}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+
+@app.post("/get_ids_by_equipment_name")
+async def get_ids_by_equipment_name(equipment: Equipment):
+    try:
+        current_user = equipment.token
+        db = open_connection(current_user)
+        result = database_handler.get_ids_by_equipment_name(db, equipment.name)
         db = None # dereference
         return {"message":result}
     except Exception as err:
