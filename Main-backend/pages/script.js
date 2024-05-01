@@ -99,3 +99,41 @@ async function show_current_user(){
 
 
 }
+
+async function fetchAndDisplayEquipments() {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/show_all_equipments', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch equipment data");
+        }
+
+        const data = await response.json();
+        const equipmentList = data.message; // Assuming this is an array
+
+        // Get the table body element
+        const tableBody = document.getElementById('equipmentTableBody');
+        tableBody.innerHTML = ''; // Clear any existing rows
+
+        // Loop through the equipment and create rows
+        equipmentList.forEach(equipment => {
+            const row = document.createElement('tr');
+            const cell = document.createElement('td');
+            cell.textContent = equipment;
+            cell.style.border = '1px solid #333';
+            cell.style.padding = '8px';
+            row.appendChild(cell);
+            tableBody.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error('Error fetching equipment data:', error);
+        alert('Failed to fetch equipment data. Please try again later.');
+    }
+}
+

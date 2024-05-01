@@ -85,11 +85,11 @@ class PostgresqlDB:
 
 #Defining Db Credentials
 def login(username, password) -> PostgresqlDB:
-    USER_NAME = username
-    PASSWORD = password
+    USER_NAME = 'postgres.fpmblnkntmtevoiliony'
+    PASSWORD = 'cif_dbms@2024'
     PORT = 5432
-    DATABASE_NAME = 'CIF'
-    HOST = 'localhost'
+    DATABASE_NAME = 'CIF_database'
+    HOST = 'aws-0-ap-south-1.pooler.supabase.com'
 
     #Note - Database should be created before executing below operation
     #Initializing SqlAlchemy Postgresql Db Instance

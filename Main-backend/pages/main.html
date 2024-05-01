@@ -69,13 +69,32 @@
     <nav class="navbar">
         <div class="logo">MyApp</div>
         <div class="user-menu">
-            <img src="user-icon.png" alt="User Icon" class="user-icon">
+            <h3 class="current-user">User: </h3>
             <div class="dropdown-content">
                 <button onclick="show_current_user()">Profile</button>
                 <button onclick="logout()">Logout</button>
             </div>
         </div>
     </nav>
+    <div class="content">
+        <h1>Welcome to MyApp</h1>
+        <p>This is the main page of the application.</p>
+    </div>
+    <!-- Print a table with all the main equipments -->
+    <div class="show-equipments">
+        <button onclick="fetchAndDisplayEquipments()">Show Equipments</button>
+        <table id="equipmentTable" style="width:100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #333; padding: 8px;">Equipment Name</th>
+                </tr>
+            </thead>
+            <tbody id="equipmentTableBody">
+                <!-- Equipment rows will be added here -->
+            </tbody>
+        </table>
+    </div>
+    
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
