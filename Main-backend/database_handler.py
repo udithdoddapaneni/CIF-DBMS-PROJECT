@@ -88,7 +88,7 @@ def login(username, password) -> PostgresqlDB:
     USER_NAME = username
     PASSWORD = password
     PORT = 5432
-    DATABASE_NAME = 'postgres'
+    DATABASE_NAME = 'CIF'
     HOST = 'localhost'
 
     #Note - Database should be created before executing below operation
@@ -100,3 +100,68 @@ def login(username, password) -> PostgresqlDB:
     engine = db.engine
 
     return db
+
+
+
+def show_all_students(db: PostgresqlDB):
+    result = list(db.execute_dql_commands("select * from student"))
+    return result
+
+def show_all_faculty(db: PostgresqlDB):
+    result = list(db.execute_dql_commands("select * from faculty"))
+    return result
+
+def show_all_staff(db: PostgresqlDB):
+    result = list(db.execute_dql_commands("select * from staff"))
+    return result
+
+def show_all_equipment(db: PostgresqlDB):
+    result = list(db.execute_dql_commands("select * from equipment"))
+    return result
+
+def show_avaiable_slots_for_equipment(db: PostgresqlDB, equipment_name: str):
+    query = f"select s.slot_id, equipment.equipment_name, s.equipment_id, s.slot_time from equipment, check_slots() as s where s.equipment_id = equipment.equipment_id and equipment.equipment_name = '{equipment_name}'"
+    result = list(db.execute_dql_commands(query))
+    return result
+
+def request_a_slot_for_project(db: PostgresqlDB, slot_id: int, project_id: str):
+    query = f"call request_slot({slot_id}, '{project_id}')"
+    result = list(db.execute_dql_commands(query))
+    return result
+
+def decide_by_super_visor(db: PostgresqlDB, request_id: int, decision: str):
+    query = f"call decide_by_super_visor({request_id}, '{decision}')"
+    result = list(db.execute_dql_commands(query))
+    return result
+
+def decide_by_faculty_incharge(db: PostgresqlDB, request_id: int, decision: str):
+    query = f"call decide_by_faculty_incharge({request_id}, '{decision}')"
+    result = list(db.execute_dql_commands(query))
+    return result
+
+def decide_by_staff_incharge(db: PostgresqlDB, request_id: int, decision: str):
+    query = f"call decide_by_staff_incharge({request_id}, '{decision}')"
+    result = list(db.execute_dql_commands(query))
+    return result
+
+def is_member_of(db: PostgresqlDB):
+    user = list(db.execute_dql_commands("select current_user"))[0]
+    group = "students"
+    query = f"select is_member_of('{user}', '{group}')"
+    result = list[db.execute_dql_commands(query)][0]
+    if result:
+        return group
+    
+    group = "faculty"
+    query = f"select is_member_of('{user}', '{group}')"
+    result = list[db.execute_dql_commands(query)][0]
+    if result:
+        return group
+    
+    group = "staff"
+    query = f"select is_member_of('{user}', '{group}')"
+    result = list[db.execute_dql_commands(query)][0]
+    if result:
+        return group
+    
+    return None
