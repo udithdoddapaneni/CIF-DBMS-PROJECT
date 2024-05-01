@@ -7,3 +7,9 @@ class LoginCredentials(BaseModel):
 
 class Token(BaseModel):
     token: str
+
+class Equipment(BaseModel):
+    name: str
+
+class Slot_Request(BaseModel):
+    ID: str
