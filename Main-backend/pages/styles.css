@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.user-menu {
+    position: relative;
+}
+
+.user-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content button {
+    color: black;
+    padding: 8px 16px;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.dropdown-content button:hover {
+    background-color: #ddd;
+}
+
+.user-menu:hover .dropdown-content {
+    display: block;
+}
+.column {
+    float: left;
+    width: 30.33%;
+    padding-left: 10px;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .track-request {
+    margin: 20px 0;
+}
+
+.track-request input {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+.track-request button {
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.track-request button:hover {
+    background-color: #555;
+}
+
+.request-info {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #333;
+    display: none;
+}
+
+.show-equipments {
+    margin-left: 20px;
+    margin-right: 20px;
+}
