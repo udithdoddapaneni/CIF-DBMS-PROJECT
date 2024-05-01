@@ -1,23 +1,89 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar Example</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
 
-    <head>this is the main page</head>
-    
-    <body>
-        <div class="current-user">show current user:-</div>
-        <div><button onclick = "show_current_user()">enter</button></div>
-        <div><button onclick = "logout()">logout</button></div>
-        <script src = "script.js"></script>
-    </body>
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+}
 
-    <!-- Check if the cookie exists then redirect that way -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const token = getCookie();
-            if (!token) {
-                window.location.href = 'login.html';
-            }
-            show_current_user();
-        });
-    </script>
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
 
+.user-menu {
+    position: relative;
+}
+
+.user-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content button {
+    color: black;
+    padding: 8px 16px;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.dropdown-content button:hover {
+    background-color: #ddd;
+}
+
+.user-menu:hover .dropdown-content {
+    display: block;
+}
+
+    </style>
+    <script src="script.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">MyApp</div>
+        <div class="user-menu">
+            <img src="user-icon.png" alt="User Icon" class="user-icon">
+            <div class="dropdown-content">
+                <button onclick="show_current_user()">Profile</button>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const token = getCookie();
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+        show_current_user();
+    });
+</script>
 </html>
