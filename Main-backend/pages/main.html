@@ -13,9 +13,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const token = getCookie();
-            if (token) {
-                window.location.href = 'profile.html';
-            } else {
+            if (!token) {
                 window.location.href = 'login.html';
             }
         });
