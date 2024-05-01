@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Response, Request
 from fastapi.middleware.cors import CORSMiddleware
-from BaseModels import LoginCredentials, Token, Equipment, Slot_Request, Decision
+from BaseModels import LoginCredentials, Token, Equipment, Slot_Request, Decision, Simple_Request
 from hashlib import sha256
 import database_handler
 
@@ -249,6 +249,30 @@ async def decide_by_staff_incharge(decision: Decision):
         current_user = decision.token
         db = open_connection(current_user)
         result = database_handler.decide_by_staff_incharge(db, decision.request_id, decision.decision)
+        db = None # dereference
+        return {"message":result}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+@app.post("/check_status")
+async def check_status(request: Simple_Request):
+    try:
+        current_user = request.token
+        db = open_connection(current_user)
+        result = database_handler.check_status(db, request.request_id)
+        db = None # dereference
+        return {"message":result}
+    except Exception as err:
+        print("error_show_user", err)
+        return {"message":"ERROR"}
+    
+@app.post("/show_projects")
+async def show_projects(token: Token):
+    try:
+        current_user = token.token
+        db = open_connection(current_user)
+        result = database_handler.show_projects(db)
         db = None # dereference
         return {"message":result}
     except Exception as err:
