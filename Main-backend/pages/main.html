@@ -2,72 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Navbar Example</title>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
-    <style>
-        body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
-    color: #fff;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.user-menu {
-    position: relative;
-}
-
-.user-icon {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 120px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dropdown-content button {
-    color: black;
-    padding: 8px 16px;
-    text-align: left;
-    border: none;
-    background: none;
-    cursor: pointer;
-    width: 100%;
-}
-
-.dropdown-content button:hover {
-    background-color: #ddd;
-}
-
-.user-menu:hover .dropdown-content {
-    display: block;
-}
-
-    </style>
+    <title>CIF</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">MyApp</div>
+        <div class="logo">CIF</div>
         <div class="user-menu">
             <h3 class="current-user">User: </h3>
             <div class="dropdown-content">
@@ -76,24 +17,48 @@
             </div>
         </div>
     </nav>
-    <div class="content">
-        <h1>Welcome to MyApp</h1>
-        <p>This is the main page of the application.</p>
+    <div class="content" style="margin: 20px; margin-bottom: 40px;">
+        <h1>Welcome to CIF</h1>
+        <p>Use the following functionality to proceed with what you want.</p>
     </div>
     <!-- Print a table with all the main equipments -->
-    <div class="show-equipments">
-        <button onclick="fetchAndDisplayEquipments()">Show Equipments</button>
-        <table id="equipmentTable" style="width:100%; border-collapse: collapse;">
-            <thead>
-                <tr>
-                    <th style="border: 1px solid #333; padding: 8px;">Equipment Name</th>
-                </tr>
-            </thead>
-            <tbody id="equipmentTableBody">
-                <!-- Equipment rows will be added here -->
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="show-equipments column">
+            <table id="equipmentTable" style="width:100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th style="border: 1px solid #333; padding: 18px;">Equipment Name</th>
+                    </tr>
+                </thead>
+                <tbody id="equipmentTableBody">
+                    <!-- Equipment rows will be added here -->
+                </tbody>
+            </table>
+            <button onclick="fetchAndDisplayEquipments()" style="padding: 8px 16px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;">Show Equipments</button>
+        </div>
+        <div class="show-equipments column">
+            <h4>Track Request</h4>
+            <div class="track-request">
+                <input type="text" id="requestIdInput" placeholder="Enter Request ID">
+                <button onclick="trackRequest()">Track Request</button>
+            </div>
+            <div class="request-info" id="requestInfo">
+                <p>Request ID: <span id="reqId"></span></p>
+                <p>Date: <span id="reqDate"></span></p>
+                <p>Approved: <span id="reqApproved"></span></p>
+            </div>
+        </div>
+        <div class="show-equipments column">
+            <h4>All Request</h4>
+        </div>
+
     </div>
+
+    
     
     
 </body>
