@@ -114,17 +114,17 @@ async function fetchAndDisplayEquipments() {
         }
 
         const data = await response.json();
-        const equipmentList = data.message; // Assuming this is an array
+        const equipmentList = data.message; // Array of objects with `equipment_name`
 
         // Get the table body element
         const tableBody = document.getElementById('equipmentTableBody');
         tableBody.innerHTML = ''; // Clear any existing rows
 
-        // Loop through the equipment and create rows
-        equipmentList.forEach(equipment => {
+        // Loop through the equipment objects and create rows
+        equipmentList.forEach(item => {
             const row = document.createElement('tr');
             const cell = document.createElement('td');
-            cell.textContent = equipment;
+            cell.textContent = item.equipment_name;
             cell.style.border = '1px solid #333';
             cell.style.padding = '8px';
             row.appendChild(cell);
@@ -136,4 +136,5 @@ async function fetchAndDisplayEquipments() {
         alert('Failed to fetch equipment data. Please try again later.');
     }
 }
+
 
