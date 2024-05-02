@@ -51,7 +51,7 @@ document
   });
 
 async function login(username, password) {
-  const response = await fetch("http://10.32.9.245:8000/login", {
+  const response = await fetch("http://10.128.6.196:8000/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -67,7 +67,7 @@ async function logout() {
     console.log("no active session");
     return;
   }
-  const response = await fetch("http://10.32.9.245:8000/logout", {
+  const response = await fetch("http://10.128.6.196:8000/logout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -83,7 +83,7 @@ async function logout() {
 
 async function show_current_user() {
   const token = getCookie();
-  const response = await fetch("http://10.32.9.245:8000/current_user", {
+  const response = await fetch("http://10.128.6.196:8000/current_user", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -183,7 +183,7 @@ function trackRequest() {
   };
 
   // Fetch data from the server
-  fetch("http://10.32.9.245:8000/check_status", {
+  fetch("http://10.128.6.196:8000/check_status", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -222,7 +222,7 @@ function showPendingRequestsSuper() {
     token: token,
   };
 
-  fetch("http://10.32.9.245:8000/show_requests_supervisor", {
+  fetch("http://10.128.6.196:8000/show_requests_supervisor", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -302,7 +302,7 @@ function approveRequest(requestId) {
     decision: "approved",
   };
 
-  fetch("http://10.32.9.245:8000/decide_by_super_visor", {
+  fetch("http://10.128.6.196:8000/decide_by_super_visor", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -328,7 +328,7 @@ function rejectRequest(requestId) {
     decision: "rejected",
   };
 
-  fetch("http://10.32.9.245:8000/decide_by_super_visor", {
+  fetch("http://10.128.6.196:8000/decide_by_super_visor", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -352,7 +352,7 @@ function showPendingRequestsIn() {
     token: token,
   };
 
-  fetch("http://10.32.9.245:8000/show_requests_faculty_incharge", {
+  fetch("http://10.128.6.196:8000/show_requests_faculty_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -432,7 +432,7 @@ function approveRequestIN(requestId) {
     decision: "approved",
   };
 
-  fetch("http://10.32.9.245:8000/decide_by_faculty_incharge", {
+  fetch("http://10.128.6.196:8000/decide_by_faculty_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -458,7 +458,7 @@ function rejectRequestIN(requestId) {
     decision: "rejected",
   };
 
-  fetch("http://10.32.9.245:8000/decide_by_faculty_incharge", {
+  fetch("http://10.128.6.196:8000/decide_by_faculty_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -483,7 +483,7 @@ function showPendingRequestsStaff() {
     token: token,
   };
 
-  fetch("http://10.32.9.245:8000/show_requests_staff_incharge", {
+  fetch("http://10.128.6.196:8000/show_requests_staff_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -563,7 +563,7 @@ function approveRequestStaff(requestId) {
     decision: "approved",
   };
 
-  fetch("http://10.32.9.245:8000/decide_by_staff_incharge", {
+  fetch("http://10.128.6.196:8000/decide_by_staff_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -589,7 +589,7 @@ function rejectRequestStaff(requestId) {
     decision: "rejected",
   };
 
-  fetch("http://10.32.9.245:8000/decide_by_staff_incharge", {
+  fetch("http://10.128.6.196:8000/decide_by_staff_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -618,7 +618,7 @@ async function showRequestsAll() {
   try {
     // Fetch data from the server
     const response = await fetch(
-      "http://10.32.9.245:8000/show_requests_student",
+      "http://10.128.6.196:8000/show_requests_student",
       {
         method: "POST",
         headers: {
@@ -691,7 +691,7 @@ async function checkUser() {
   //   const message = data.message;
   //   console.log(message);
   try {
-    const response = await fetch("http://10.32.9.245:8000/is_member_of", {
+    const response = await fetch("http://10.128.6.196:8000/is_member_of", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
