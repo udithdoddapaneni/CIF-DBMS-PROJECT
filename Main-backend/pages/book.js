@@ -175,7 +175,7 @@ function trackRequest() {
                     .then((response) => response.json())
                     .then((data) => {
                       if (data.message === "success") {
-                        alert("Slot booked successfully");
+                        alert("Request sent successfully");
                         // REDIRECT TO THE MAIN PAGE
                         window.location.href = "main.html";
                       } else {
