@@ -476,6 +476,137 @@ function rejectRequestIN(requestId) {
     });
 }
 
+// Staff
+function showPendingRequestsStaff() {
+  const token = getCookie();
+  const requestData = {
+    token: token,
+  };
+
+  fetch("http://10.32.9.245:8000/show_requests_staff_incharge", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+
+    .then((data) => {
+      console.log(data);
+      const container = document.getElementById("showPendingStaff");
+      container.innerHTML = "";
+      data.message.forEach((request) => {
+        const requestDiv = document.createElement("div");
+        requestDiv.classList.add("request-item");
+
+        const requestIdPara = document.createElement("p");
+        requestIdPara.textContent = `Request ID: ${request.request_id}`;
+
+        const slotIdPara = document.createElement("p");
+        slotIdPara.textContent = `Slot ID: ${request.slot_id}`;
+
+        const equipmentIdPara = document.createElement("p");
+        equipmentIdPara.textContent = `Equipment Name: ${request.equipment_name}`;
+
+        const slotTimePara = document.createElement("p");
+        slotTimePara.textContent = `Slot Time: ${request.slot_time}`;
+
+        requestDiv.appendChild(requestIdPara);
+        requestDiv.appendChild(slotIdPara);
+        requestDiv.appendChild(equipmentIdPara);
+        requestDiv.appendChild(slotTimePara);
+
+        container.appendChild(requestDiv);
+
+        // add two buttons to approve or reject the request
+        const approveButton = document.createElement("button");
+        approveButton.textContent = "Approve";
+        approveButton.style = `
+            padding: 8px 16px;
+            background-color: green;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+          `;
+        requestDiv.appendChild(approveButton);
+        approveButton.addEventListener("click", () => {
+          approveRequestStaff(request.request_id);
+        });
+
+        const rejectButton = document.createElement("button");
+        rejectButton.textContent = "Reject";
+        rejectButton.style = `
+            padding: 8px 16px;
+            background-color: red;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+          `;
+        requestDiv.appendChild(rejectButton);
+        rejectButton.addEventListener("click", () => {
+          rejectRequestStaff(request.request_id);
+        });
+      });
+    });
+}
+
+function approveRequestStaff(requestId) {
+  const token = getCookie();
+  const requestData = {
+    token: token,
+    request_id: requestId,
+    decision: "approved",
+  };
+
+  fetch("http://10.32.9.245:8000/decide_by_staff_incharge", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert("Request approved successfully.");
+      showPendingRequestsStaff();
+    })
+    .catch((error) => {
+      alert("An error occurred while approving the request.");
+      console.error(error);
+    });
+}
+
+function rejectRequestStaff(requestId) {
+  const token = getCookie();
+  const requestData = {
+    token: token,
+    request_id: requestId,
+    decision: "rejected",
+  };
+
+  fetch("http://10.32.9.245:8000/decide_by_staff_incharge", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert("Request rejected successfully.");
+      showPendingRequestsStaff();
+    })
+    .catch((error) => {
+      alert("An error occurred while approving the request.");
+      console.error(error);
+    });
+}
+
 // Show all requests of the current user
 // Show all requests of the current user
 async function showRequestsAll() {
