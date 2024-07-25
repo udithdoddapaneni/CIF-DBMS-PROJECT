@@ -51,7 +51,7 @@ document
   });
 
 async function login(username, password) {
-  const response = await fetch("https://cif-portal.dhruvadeep.cloud/login", {
+  const response = await fetch("https://api.dhruvadeep.cloud/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -67,7 +67,7 @@ async function logout() {
     console.log("no active session");
     return;
   }
-  const response = await fetch("https://cif-portal.dhruvadeep.cloud/logout", {
+  const response = await fetch("https://api.dhruvadeep.cloud/logout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -83,16 +83,13 @@ async function logout() {
 
 async function show_current_user() {
   const token = getCookie();
-  const response = await fetch(
-    "https://cif-portal.dhruvadeep.cloud/current_user",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ token }),
-    }
-  );
+  const response = await fetch("https://api.dhruvadeep.cloud/current_user", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token }),
+  });
   const response_data = await response.json();
   // console.log(response_data)
   // alert(response_data.message)
@@ -105,7 +102,7 @@ async function fetchAndDisplayEquipments() {
   try {
     const token = getCookie();
     const response = await fetch(
-      "https://cif-portal.dhruvadeep.cloud/show_all_equipments",
+      "https://api.dhruvadeep.cloud/show_all_equipments",
       {
         method: "POST",
         headers: {
@@ -186,7 +183,7 @@ function trackRequest() {
   };
 
   // Fetch data from the server
-  fetch("https://cif-portal.dhruvadeep.cloud/check_status", {
+  fetch("https://api.dhruvadeep.cloud/check_status", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -225,7 +222,7 @@ function showPendingRequestsSuper() {
     token: token,
   };
 
-  fetch("https://cif-portal.dhruvadeep.cloud/show_requests_supervisor", {
+  fetch("https://api.dhruvadeep.cloud/show_requests_supervisor", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -305,7 +302,7 @@ function approveRequest(requestId) {
     decision: "approved",
   };
 
-  fetch("https://cif-portal.dhruvadeep.cloud/decide_by_super_visor", {
+  fetch("https://api.dhruvadeep.cloud/decide_by_super_visor", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -331,7 +328,7 @@ function rejectRequest(requestId) {
     decision: "rejected",
   };
 
-  fetch("https://cif-portal.dhruvadeep.cloud/decide_by_super_visor", {
+  fetch("https://api.dhruvadeep.cloud/decide_by_super_visor", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -355,7 +352,7 @@ function showPendingRequestsIn() {
     token: token,
   };
 
-  fetch("https://cif-portal.dhruvadeep.cloud/show_requests_faculty_incharge", {
+  fetch("https://api.dhruvadeep.cloud/show_requests_faculty_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -435,7 +432,7 @@ function approveRequestIN(requestId) {
     decision: "approved",
   };
 
-  fetch("https://cif-portal.dhruvadeep.cloud/decide_by_faculty_incharge", {
+  fetch("https://api.dhruvadeep.cloud/decide_by_faculty_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -461,7 +458,7 @@ function rejectRequestIN(requestId) {
     decision: "rejected",
   };
 
-  fetch("https://cif-portal.dhruvadeep.cloud/decide_by_faculty_incharge", {
+  fetch("https://api.dhruvadeep.cloud/decide_by_faculty_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -486,7 +483,7 @@ function showPendingRequestsStaff() {
     token: token,
   };
 
-  fetch("https://cif-portal.dhruvadeep.cloud/show_requests_staff_incharge", {
+  fetch("https://api.dhruvadeep.cloud/show_requests_staff_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -566,7 +563,7 @@ function approveRequestStaff(requestId) {
     decision: "approved",
   };
 
-  fetch("https://cif-portal.dhruvadeep.cloud/decide_by_staff_incharge", {
+  fetch("https://api.dhruvadeep.cloud/decide_by_staff_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -592,7 +589,7 @@ function rejectRequestStaff(requestId) {
     decision: "rejected",
   };
 
-  fetch("https://cif-portal.dhruvadeep.cloud/decide_by_staff_incharge", {
+  fetch("https://api.dhruvadeep.cloud/decide_by_staff_incharge", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -621,7 +618,7 @@ async function showRequestsAll() {
   try {
     // Fetch data from the server
     const response = await fetch(
-      "https://cif-portal.dhruvadeep.cloud/show_requests_student",
+      "https://api.dhruvadeep.cloud/show_requests_student",
       {
         method: "POST",
         headers: {
@@ -694,16 +691,13 @@ async function checkUser() {
   //   const message = data.message;
   //   console.log(message);
   try {
-    const response = await fetch(
-      "https://cif-portal.dhruvadeep.cloud/is_member_of",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token }),
-      }
-    );
+    const response = await fetch("https://api.dhruvadeep.cloud/is_member_of", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token }),
+    });
     const data = await response.json();
     const message = data.message;
     console.log(message);

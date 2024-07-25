@@ -48,7 +48,7 @@ function trackRequest() {
   console.log(JSON.stringify(requestData));
 
   // Fetch data from the server
-  fetch("https://cif-portal.dhruvadeep.cloud/get_ids_by_equipment_name", {
+  fetch("https://api.dhruvadeep.cloud/get_ids_by_equipment_name", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -109,16 +109,13 @@ function trackRequest() {
             token: token,
             ID: element.equipment_id,
           };
-          fetch(
-            "https://cif-portal.dhruvadeep.cloud/show_available_slots_equipment",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(requestData),
-            }
-          )
+          fetch("https://api.dhruvadeep.cloud/show_available_slots_equipment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+          })
             .then((response) => response.json())
             .then((data) => {
               const message = data.message;
@@ -170,7 +167,7 @@ function trackRequest() {
 
                   console.log(JSON.stringify(requestData));
                   fetch(
-                    "https://cif-portal.dhruvadeep.cloud/request_a_slot_for_project",
+                    "https://api.dhruvadeep.cloud/request_a_slot_for_project",
                     {
                       method: "POST",
                       headers: {
