@@ -87,8 +87,8 @@ def login(username, password) -> PostgresqlDB:
     USER_NAME = username
     PASSWORD = password
     PORT = 5432
-    DATABASE_NAME = 'CIF'
-    HOST = 'localhost'
+    DATABASE_NAME = 'cif_iitpkd'
+    HOST = 'cif.db.dhruvadeep.cloud'
 
     #Note - Database should be created before executing below operation
     #Initializing SqlAlchemy Postgresql Db Instance
